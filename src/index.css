@@ -1,0 +1,25 @@
+@import "tailwindcss";
+
+/* Swiper Styling */
+.swiper-button-next,
+.swiper-button-prev {
+  color: #10b981;
+  transform: scale(0.8); /* Slightly smaller arrows look cleaner */
+}
+
+.swiper-pagination-bullet-active {
+  background: #10b981 !important;
+  width: 24px !important; /* Makes the active dot a "pill" shape */
+  border-radius: 4px !important;
+  transition: width 0.3s ease;
+}
+
+@theme {
+  --font-instrument: "Instrument Sans", ui-sans-serif, system-ui;
+  --color-brand-green: #00592e;
+}
+
+body {
+  font-family: var(--font-instrument);
+  @apply bg-[#050d0a]; /* Ensures your background matches your JS code */
+}
