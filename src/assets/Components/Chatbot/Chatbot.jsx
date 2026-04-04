@@ -1,15 +1,36 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Send, Bot, X } from "lucide-react";
-
+import { useAuth } from "../../../context/AuthContext";
 const Chatbot = () => {
+  const { user } = useAuth(); // 2. Access the user object
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState(""); 
+  
+  // 3. Update initial state to use the username if available
   const [messages, setMessages] = useState([
-    { role: "bot", text: "Hello! I am CivicBot. How can I help you today?" }
+    { 
+      role: "bot", 
+      text: `Hello ${user?.username || "Citizen"}! I am CivicBot. How can I help you today?` 
+    }
   ]);
+  
   const [loading, setLoading] = useState(false);
   const [userRole, setUserRole] = useState(localStorage.getItem("role"));
   const scrollRef = useRef(null);
+
+  // Update the greeting if the user logs in while the component is mounted
+  useEffect(() => {
+    if (user?.username) {
+      setMessages(prev => {
+        const newMsgs = [...prev];
+        newMsgs[0] = { 
+          role: "bot", 
+          text: `Hello ${user.username}! I am CivicBot. How can I help you today?` 
+        };
+        return newMsgs;
+      });
+    }
+  }, [user?.username]);
 
   useEffect(() => {
     const handleRoleChange = () => {
@@ -17,7 +38,6 @@ const Chatbot = () => {
       setUserRole(currentRole);
     };
 
-    // Check every second to see if the user logged in/out
     const interval = setInterval(handleRoleChange, 1000);
     return () => clearInterval(interval);
   }, []);
@@ -28,8 +48,6 @@ const Chatbot = () => {
     }
   }, [messages, loading]);
 
-  // --- UPDATED LOGIC ---
-  // We use .trim() and .toLowerCase() to avoid simple spelling/casing errors
   const normalizedRole = userRole ? userRole.trim().toLowerCase() : "";
   
   if (normalizedRole !== "normal user") {
@@ -46,7 +64,6 @@ const Chatbot = () => {
     setInput(""); 
 
     try {
-      // Connect to your Python FastAPI backend
       const response = await fetch("http://localhost:8000/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },

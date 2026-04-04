@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../../context/AuthContext';
 import { ArrowLeft, ShieldCheck, Mail } from 'lucide-react';
+import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const [loginData, setLoginData] = useState({ 
@@ -43,6 +44,40 @@ const Login = () => {
     } catch (error) {
       console.error("Login failed", error);
       alert("An error occurred during login.");
+    }
+  };
+
+  const handleGoogleSuccess = async (credentialResponse) => {
+    try {
+      // The frontend received a secure token from Google
+      const token = credentialResponse.credential;
+      console.log("✅ SUCCESS! Google Token Generated:", token); // <-- Added for easy verification
+
+      // Pass the token to the backend for verification
+      const response = await fetch('http://localhost:8000/auth/google', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token }),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        // Assuming the backend returns a user object
+        const user = data.user || data; 
+        
+        // Save role constraint seen in the existing login logic
+        localStorage.setItem("role", user.role || 'Normal User'); 
+        login(user);
+        navigate("/");
+      } else {
+        console.error("Backend validation failed", await response.text());
+        alert("Google Login failed server verification.");
+      }
+    } catch (error) {
+      console.error("Error communicating with backend during Google Login", error);
+      alert("Network error during Google Login.");
     }
   };
 
@@ -111,6 +146,23 @@ const Login = () => {
             </button>
           </div>
         </form>
+
+        <div className="mt-6 flex flex-col items-center justify-center gap-3 w-full border-t border-white/5 pt-6">
+          <p className="text-gray-500 text-[10px] md:text-xs uppercase tracking-widest font-semibold mb-2">
+            Or continue with
+          </p>
+          <div className="w-full flex justify-center scale-105">
+            <GoogleLogin
+              onSuccess={handleGoogleSuccess}
+              onError={() => {
+                console.error('Google Login Failed');
+                alert('Google Login encountered an error.');
+              }}
+              theme="filled_black"
+              shape="pill"
+            />
+          </div>
+        </div>
 
         <div className="mt-8 pt-6 border-t border-white/5 text-center">
             <p className="text-gray-600 text-[10px] md:text-xs uppercase tracking-widest font-semibold">

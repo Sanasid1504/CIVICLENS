@@ -3,7 +3,7 @@ import { useNavigate, Link } from "react-router-dom";
 import { 
   ArrowRight, MapPin, BarChart3, Lightbulb, 
   LayoutDashboard, LogOut, ChevronDown, LogIn, ShieldCheck,
-  Settings, Clock, Menu, X 
+  Settings, Clock, Menu, X, PlusCircle
 } from "lucide-react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Pagination, Autoplay, Navigation } from "swiper/modules";
@@ -38,6 +38,7 @@ const CivicLensLanding = () => {
   };
 
   const handleDashboardLink = () => {
+    setIsDropdownOpen(false);
     if (user?.role === "Admin") navigate("/admin");
     else if (user?.role === "Government Authority") navigate("/authority");
     else navigate("/user-stats");
@@ -114,11 +115,19 @@ const CivicLensLanding = () => {
                   </div>
                   <ChevronDown size={14} className={`text-gray-500 transition-transform ${isDropdownOpen ? 'rotate-180' : ''}`} />
                 </button>
+
                 {isDropdownOpen && (
                   <div className="absolute top-full right-0 mt-4 w-56 bg-[#0b1410] border border-white/10 rounded-2xl p-4 shadow-2xl z-50">
                     <button onClick={handleDashboardLink} className="w-full flex items-center gap-3 px-3 py-3 hover:bg-white/5 rounded-xl transition-colors text-[10px] uppercase font-bold tracking-widest text-gray-300">
-                      <LayoutDashboard size={16} className="text-emerald-500" /> Portal
+                      <LayoutDashboard size={16} className="text-emerald-500" /> 
+                      {user.role === "User" ? "My Dashboard" : "Portal"}
                     </button>
+                    {user.role === "User" && (
+                      <button onClick={() => { navigate("/user-home"); setIsDropdownOpen(false); }} className="w-full flex items-center gap-3 px-3 py-3 hover:bg-emerald-500/10 rounded-xl transition-colors text-[10px] uppercase font-bold tracking-widest text-emerald-400 mt-1">
+                        <PlusCircle size={16} /> Make a Complaint
+                      </button>
+                    )}
+                    <div className="my-2 border-t border-white/5" />
                     <button onClick={logout} className="w-full flex items-center gap-3 px-3 py-3 hover:bg-red-900/10 rounded-xl transition-colors text-[10px] uppercase font-bold tracking-widest text-red-400">
                       <LogOut size={16} /> Logout
                     </button>
@@ -128,48 +137,51 @@ const CivicLensLanding = () => {
             )}
           </div>
         </div>
-
-        {/* --- MOBILE DROPDOWN --- */}
-        {isMobileMenuOpen && (
-          <div className="lg:hidden w-full max-w-[90%] bg-[#0a0a0a]/90 backdrop-blur-xl border border-white/5 rounded-3xl p-6 flex flex-col gap-6 animate-in slide-in-from-top-4 duration-300 shadow-2xl">
-            {!isAdminOrAuth && (
-              <>
-                <button onClick={(e) => { handleComplaintsClick(e); setIsMobileMenuOpen(false); }} className="text-left text-gray-400 hover:text-emerald-400 uppercase tracking-[0.2em] text-[10px] font-semibold">Complaints</button>
-                <Link to="/community" onClick={() => setIsMobileMenuOpen(false)} className="text-left text-gray-400 hover:text-emerald-400 uppercase tracking-[0.2em] text-[10px] font-semibold">Feed</Link>
-              </>
-            )}
-            <Link to="/help" onClick={() => setIsMobileMenuOpen(false)} className="text-left text-gray-400 hover:text-emerald-400 uppercase tracking-[0.2em] text-[10px] font-semibold">Help Center</Link>
-          </div>
-        )}
       </nav>
 
-      {/* --- HERO SECTION --- */}
+      {/* --- HERO SECTION WITH MATCHING BUTTON COLORS --- */}
       <header className="relative max-w-5xl mx-auto text-center pt-20 md:pt-24 pb-20 px-6 flex flex-col items-center">
-        {/* Changed to Medium Weight and Normal Style */}
         <h1 className="text-5xl md:text-8xl font-medium tracking-tighter mb-4 text-white uppercase leading-none">CIVICLENS</h1>
-        {/* Italic Instrument Sans */}
         <p className="text-xl md:text-4xl italic font-light mb-8 tracking-tight text-emerald-100/60 leading-tight">"From Complaint to Resolution — With Accountability."</p>
         <p className="text-[10px] md:text-xs text-gray-500 max-w-xl mx-auto mb-10 leading-relaxed uppercase tracking-widest font-light">
           Report issues, follow their status in real-time, and know exactly who's responsible.
         </p>
         
-        <div className="flex justify-center w-full px-4">
+        <div className="flex flex-col md:flex-row justify-center items-center w-full px-4 gap-4">
           {!isLoggedIn ? (
             <button 
               onClick={() => navigate("/signup")} 
-              className="bg-[#00592E] hover:bg-emerald-600 text-white px-8 md:px-16 py-4 rounded-full font-semibold uppercase tracking-widest text-[11px] md:text-sm shadow-lg active:scale-95 transition-all w-full md:w-auto max-w-[300px] md:max-w-none mx-auto"
+              className="bg-[#00592E] hover:bg-emerald-600 text-white px-8 md:px-16 py-4 rounded-full font-semibold uppercase tracking-widest text-[11px] md:text-sm shadow-lg active:scale-95 transition-all w-full md:w-auto max-w-[300px] md:max-w-none"
             >
               Get Started Now
             </button>
           ) : (
-            <button 
-              onClick={handleRoleBasedRedirect} 
-              // Changed font to Regular (font-normal)
-              className="bg-[#00592E] hover:bg-[#00381D] text-white px-8 md:px-20 py-4 md:py-5 rounded-full font-normal uppercase tracking-widest text-[11px] md:text-base shadow-lg active:scale-95 transition-all flex items-center justify-center gap-3 w-full md:w-auto max-w-[340px] md:max-w-none mx-auto"
-            >
-              {user.role === "Admin" ? <Settings size={20} /> : <ShieldCheck size={20} />} 
-              <span className="whitespace-nowrap">Go to {user.role} Portal</span>
-            </button>
+            <>
+              {isAdminOrAuth ? (
+                <button 
+                  onClick={handleRoleBasedRedirect} 
+                  className="bg-[#00592E] hover:bg-[#00381D] text-white px-8 md:px-20 py-4 md:py-5 rounded-full font-normal uppercase tracking-widest text-[11px] md:text-base shadow-lg active:scale-95 transition-all flex items-center justify-center gap-3 w-full md:w-auto max-w-[340px] md:max-w-none"
+                >
+                  <Settings size={20} /> <span>Go to {user.role} Portal</span>
+                </button>
+              ) : (
+                <div className="flex flex-col sm:flex-row gap-4 w-full md:w-auto">
+                  {/* BOTH BUTTONS NOW USE THE SAME EMERALD GREEN THEME */}
+                  <button 
+                    onClick={() => navigate("/user-stats")} 
+                    className="bg-[#00592E] hover:bg-emerald-600 text-white px-8 md:px-12 py-4 rounded-full font-semibold uppercase tracking-widest text-[11px] md:text-sm shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                  >
+                    <LayoutDashboard size={18}/> My Dashboard
+                  </button>
+                  <button 
+                    onClick={() => navigate("/user-home")} 
+                    className="bg-[#00592E] hover:bg-emerald-600 text-white px-8 md:px-12 py-4 rounded-full font-semibold uppercase tracking-widest text-[11px] md:text-sm shadow-lg active:scale-95 transition-all flex items-center justify-center gap-2 w-full sm:w-auto"
+                  >
+                    <PlusCircle size={18}/> Make a Complaint
+                  </button>
+                </div>
+              )}
+            </>
           )}
         </div>
       </header>
