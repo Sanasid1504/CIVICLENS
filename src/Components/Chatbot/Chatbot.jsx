@@ -68,7 +68,7 @@ const Chatbot = () => { // 2. Access the user object
 
     try {
       const token = localStorage.getItem("Token");
-      const response = await fetch("http://localhost:8000/civilian/chat", {
+      const response = await fetch("https://civiclens-backend-j6i2.onrender.com/civilian/chat", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
