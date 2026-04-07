@@ -99,7 +99,7 @@ if (!isAuthenticated) {
 
             <div className="flex items-center gap-2 md:gap-3 cursor-pointer" onClick={() => navigate('/')}>
               <img
-                src="/images/logo.png"
+                src="logo.png"
                 alt="CivicLens Logo"
                 className="h-6 md:h-8 w-auto object-contain"
               />
