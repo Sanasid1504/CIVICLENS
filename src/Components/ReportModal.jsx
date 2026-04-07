@@ -137,7 +137,7 @@ const ReportModal = ({ isOpen, onClose }) => {
                     
                     <div className="space-y-1">
                         <label className="text-[10px] font-black text-emerald-500 uppercase tracking-widest flex items-center gap-2">
-                            <User size={12}/> Name
+                            <User size={12}/> Title
                         </label>
                         <input 
                             className="w-full bg-[#050d0a] border border-white/5 rounded-xl p-3 text-sm outline-none"
