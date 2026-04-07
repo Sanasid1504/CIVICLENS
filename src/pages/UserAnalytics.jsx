@@ -76,7 +76,7 @@ const UserAnalytics = () => {
 
       <main className="max-w-10xl mx-auto px-8 py-10 space-y-10">
 
-        <div className="flex justify-between items-start">
+        <div className="flex flex-col gap-3 justify-between items-start">
           <div>
             <h2 className="text-4xl font-bold text-white tracking-tighter">
               Welcome, {user?.name || 'User'}

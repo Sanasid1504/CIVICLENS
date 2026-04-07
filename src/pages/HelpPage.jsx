@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { 
-  ArrowLeft, HelpCircle, ShieldCheck, 
+  ArrowLeft, HelpCircle, ShieldCheck,Signpost , 
   MapPin, Camera, CheckCircle2, MessageSquare, 
   Navigation, UserCheck 
 } from 'lucide-react';
@@ -10,7 +10,7 @@ const HelpPage = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="min-h-screen bg-[#050d0a] text-white font-sans no-scrollbar overflow-x-hidden">
+    <div className="min-h-screen max-sm:w-88 max-sm:absolute bg-[#050d0a] text-white font-sans no-scrollbar overflow-x-hidden">
       
       {/* --- BACKGROUND BLUR --- */}
       <div className="absolute inset-0 pointer-events-none -z-10">
@@ -35,10 +35,10 @@ const HelpPage = () => {
           <div className="bg-gradient-to-br from-[#08100d] to-[#050d0a] border border-white/5 rounded-[4rem] p-12 md:p-20 shadow-2xl relative overflow-hidden">
             <div className="relative z-10 max-w-3xl">
               <h2 className="text-sm font-black text-emerald-500 uppercase tracking-[0.4em] mb-6">Our Mission</h2>
-              <p className="text-4xl md:text-5xl font-bold tracking-tighter leading-tight mb-8">
+              <p className="text-2xl sm:text-4xl md:text-5xl font-bold tracking-tighter leading-tight mb-8">
                 Building a bridge between <span className="text-emerald-400 italic">Citizens</span> and <span className="opacity-50 text-white">Authorities</span> through radical transparency.
               </p>
-              <p className="text-gray-500 text-lg leading-relaxed">
+              <p className="text-gray-500 text-sm sm:text-lg leading-relaxed">
                 CivicLens isn't just a reporting tool; it’s an accountability engine. We use real-time data and audit trails to ensure that every street light, every pothole, and every water leak is handled by the right department with a recorded resolution.
               </p>
             </div>
@@ -51,16 +51,16 @@ const HelpPage = () => {
           <div className="flex justify-between items-end mb-12">
             <div>
               <h2 className="text-sm font-black text-emerald-500 uppercase tracking-[0.4em] mb-4">The Workflow</h2>
-              <h3 className="text-5xl font-bold tracking-tight">Filing a Report</h3>
+              <h3 className="text-3xl sm:text-5xl font-bold tracking-tight">Filing a Report</h3>
             </div>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             <StepCard 
               number="01" 
-              icon={<UserCheck className="text-emerald-500" />} 
-              title="Identity" 
-              desc="Enter your name in the form. This allows authorities to reach out for clarification and awards you 'Civic Points'."
+              icon={<Signpost className="text-emerald-500" />} 
+              title="Title" 
+              desc="Enter Title for issue in the form. This allows authorities to get clarification ."
             />
             <StepCard 
               number="02" 

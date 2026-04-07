@@ -55,7 +55,7 @@ const AboutPage = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#050d0a] text-white font-instrument no-scrollbar overflow-x-hidden">
+    <div className="min-h-screen max-sm:w-88 overflow-x-hidden max-sm:absolute bg-[#050d0a] text-white font-instrument no-scrollbar ">
       
       <div className="absolute inset-0 pointer-events-none -z-10">
         <div className="absolute top-[20%] left-[-5%] w-[600px] h-[600px] bg-emerald-500/5 blur-[120px] rounded-full" />
@@ -88,7 +88,7 @@ const AboutPage = () => {
             <div className="grid md:grid-cols-2 gap-16 items-center">
               <div className="space-y-6">
                 <h2 className="text-sm font-black text-emerald-500 uppercase tracking-[0.4em]">The Problem</h2>
-                <h3 className="text-4xl font-bold leading-tight">Disconnected Cities, <br/> Ignored Voices.</h3>
+                <h3 className="text-3xl sm:text-4xl font-bold leading-tight">Disconnected Cities, <br/> Ignored Voices.</h3>
                 <p className="text-gray-500 leading-relaxed text-lg">
                   Traditional civic reporting is often a "black hole"—you file a complaint and never hear back. CivicLens changes the narrative by giving every citizen a lens into the government's workflow.
                 </p>
@@ -121,15 +121,15 @@ const AboutPage = () => {
             <ValueCard icon={<Award size={32} />} title="Citizen First" desc="Your points and rank reflect your contribution to a better community." />
         </section>
 
-        <section className="text-center bg-[#00592E] rounded-[4rem] p-20 shadow-2xl shadow-emerald-900/20">
+        <section className="text-center bg-[#00592E] rounded-[4rem] max-sm:h-150 p-20 shadow-2xl shadow-emerald-900/20">
             <Users size={64} className="mx-auto mb-8 text-white/80" />
-            <h3 className="text-4xl font-bold mb-6">Become part of the solution.</h3>
+            <h3 className="text-xl sm:text-4xl  font-bold mb-6">Become part of the solution.</h3>
             <p className="text-emerald-100/70 mb-10 max-w-xl mx-auto font-normal">
                 Join the 15,000+ citizens who are actively shaping the future of their urban environments.
             </p>
             <button 
                 onClick={handleCTA}
-                className="bg-white text-emerald-900 px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl"
+                className="bg-white text-emerald-900 sm:px-12 py-5 rounded-2xl font-black uppercase text-xs tracking-widest hover:scale-105 transition-all shadow-xl"
             >
                 Join the Movement
             </button>
