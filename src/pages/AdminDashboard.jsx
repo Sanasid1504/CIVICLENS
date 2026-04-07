@@ -89,7 +89,7 @@ const AdminDashboard = () => {
             }
 
             try {
-                const userRes = await fetch("https://civiclens-backend-j6i2.onrender.com/user/me", {
+                const userRes = await fetch("https://168.144.68.244.sslip.io/user/me", {
                     headers: { Authorization: token }
                 });
 
@@ -102,7 +102,7 @@ const AdminDashboard = () => {
 
                 setUser(userData);
 
-                const res = await fetch("https://civiclens-backend-j6i2.onrender.com/admin/users", {
+                const res = await fetch("https://168.144.68.244.sslip.io/admin/users", {
                     headers: { Authorization: token }
                 });
 
@@ -126,7 +126,7 @@ const AdminDashboard = () => {
                         status: a.is_suspended ? "Inactive" : "Active"
                     };
                 });
-                const reportRes = await fetch("https://civiclens-backend-j6i2.onrender.com/admin/reports", {
+                const reportRes = await fetch("https://168.144.68.244.sslip.io/admin/reports", {
                     headers: { Authorization: token }
                 });
 
@@ -200,7 +200,7 @@ const AdminDashboard = () => {
         const token = localStorage.getItem("Token");
 
         try {
-            const res = await fetch("https://civiclens-backend-j6i2.onrender.com/admin/register-authority", {
+            const res = await fetch("https://168.144.68.244.sslip.io/admin/register-authority", {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -223,7 +223,7 @@ const AdminDashboard = () => {
             alert("Authority registered successfully");
 
             // 🔥 REFETCH USERS (IMPORTANT)
-            const updatedRes = await fetch("https://civiclens-backend-j6i2.onrender.com/admin/users", {
+            const updatedRes = await fetch("https://168.144.68.244.sslip.io/admin/users", {
                 headers: { Authorization: token }
             });
 
@@ -263,7 +263,7 @@ const AdminDashboard = () => {
         if (!window.confirm("Toggle suspension?")) return;
 
         try {
-            await fetch(`https://civiclens-backend-j6i2.onrender.com/admin/suspend-user/${id}`, {
+            await fetch(`https://168.144.68.244.sslip.io/admin/suspend-user/${id}`, {
                 method: "PUT",
                 headers: { Authorization: token }
             });

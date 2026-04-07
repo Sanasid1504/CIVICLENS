@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 const Apiclient=axios.create({
-  baseURL: 'https://civiclens-backend-j6i2.onrender.com',
+  baseURL: 'https://168.144.68.244.sslip.io',
   headers: {
     'Content-Type': 'application/json',
   },

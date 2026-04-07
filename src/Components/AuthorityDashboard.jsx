@@ -48,7 +48,7 @@ const AuthorityDashboard = () => {
       }
 
       try {
-        const res = await fetch("https://civiclens-backend-j6i2.onrender.com/authority/reports", {
+        const res = await fetch("https://168.144.68.244.sslip.io/authority/reports", {
           headers: { Authorization: token }
         });
 
@@ -87,7 +87,7 @@ const AuthorityDashboard = () => {
 
         for (let r of reports) {
           const res = await fetch(
-            `https://civiclens-backend-j6i2.onrender.com/authority/report/${r.id}/history`,
+            `https://168.144.68.244.sslip.io/authority/report/${r.id}/history`,
             {
               headers: { Authorization: token }
             }
@@ -131,7 +131,7 @@ const AuthorityDashboard = () => {
     }
 
     const res = await fetch(
-      `https://civiclens-backend-j6i2.onrender.com/authority/report/${id}/action`,
+      `https://168.144.68.244.sslip.io/authority/report/${id}/action`,
       {
         method: "POST",
         headers: {
