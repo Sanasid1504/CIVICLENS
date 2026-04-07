@@ -126,7 +126,7 @@ const Signup = () => {
       {/* Top Logo - UPDATED TO USE YOUR NEW LOGO IMAGE */}
       <div className="absolute top-6 md:top-8 left-6 md:left-12 flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
         <img
-          src="/images/logo.png"
+          src="logo.png"
           alt="CivicLens Logo"
           className="h-8 md:h-10 w-auto object-contain"
         />
