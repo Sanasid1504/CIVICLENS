@@ -498,7 +498,7 @@ const AdminDashboard = () => {
                 <div className="h-24 flex flex-col justify-center px-8 border-b border-white/5">
                     <div className="flex items-center gap-3 cursor-pointer" onClick={() => navigate('/')}>
                         <img
-                            src="/images/logo.png"
+                            src="logo.png"
                             alt="Logo"
                             className="h-6 w-auto object-contain"
                         />
