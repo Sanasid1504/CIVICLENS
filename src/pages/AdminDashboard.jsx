@@ -147,7 +147,7 @@ const AdminDashboard = () => {
     const [areaAssignments, setAreaAssignments] = useState({});
     const analyticsStats = [
         { label: 'Total Reports', value: reports?.length || 0 },
-        { label: 'Resolved Issues', value: reports?.filter(r => r.status === 'Resolved').length || 0 },
+        { label: 'Resolved Issues', value: reports?.filter(r => r.status === 'resolved').length || 0 },
         { label: 'Pending Reports', value: reports?.filter(r => r.status === 'Submitted').length || 0 },
         { label: 'Escalations', value: 0 },
     ];
@@ -171,9 +171,9 @@ const AdminDashboard = () => {
         .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
         .slice(0, 10)
         .map(r => ({
-            type: r.status === 'Resolved' ? 'resolve' : 'report',
+            type: r.status === 'resolved' ? 'resolve' : 'report',
             message:
-                r.status === 'Resolved'
+                r.status === 'resolved'
                     ? `Resolved: ${r.title}`
                     : `Reported: ${r.title}`,
             time:new Date(r.created_at).toLocaleDateString()
